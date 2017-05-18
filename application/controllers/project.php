@@ -80,7 +80,10 @@
 			
 			$this->db->select('id, eid');
 			$this->db->from('user');
-			$this->db->where('team_id', $this->session->userdata('team_id'));
+			if($this->session->userdata('is_admin') != 1)
+			{
+				$this->db->where('team_id', $this->session->userdata('team_id'));
+			}
 			$this->db->where('is_active !=', 0);
 			$query = $this->db->get();
 			$data['eid'] = $query->result();

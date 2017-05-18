@@ -38,18 +38,22 @@
 			  <option value="12">Associate Software Engineer</option>
 			  <option value="11">Software Engineer</option>
 			  <option value="10">Senior Software Engineer</option>
-			  <option value="9">Java</option>
-			  <option value="8">PHP</option>
-			  <option value="7">PL/SQL</option>
-			  <option value="6">System Test</option>
+			  <option value="9">Team Lead</option>
+			  <option value="8">Associate Manager</option>
+			  <option value="7">Manager</option>
+			  <option value="6">Senior Manager</option>
 			</select>
 		</div>
 		
 		<!-- CAPABILITY -->
 		<div class="form-group">
-		  <label>CAPABILITY</label>
-			<?php $team = array ('1' => 'ETL', '2' => '.NET', '3' => 'C++', '4' => 'Java', '5' => 'PHP', '6' => 'PL/SQL', '7' => 'System Test' ); ?>
-			<?php echo form_dropdown('team_id',$team, '','class="form-control"'); ?> 
+		<?php if ( $this->session->userdata('is_admin') == 1 ) { ?> 
+			<div class='show'> <?php } else { ?>  <div class='hidden'> <?php } ?>
+				<label>CAPABILITY</label>
+				<?php $team = array ('1' => 'ETL', '2' => '.NET', '3' => 'C++', '4' => 'Java', '5' => 'PHP', '6' => 'PL/SQL', '7' => 'System Test' ); ?>
+				<?php echo form_dropdown('team_id',$team, '','class="form-control"'); ?> 
+			</div>
+			<?php echo form_hidden('team_id', $this->session->userdata('team_id'));?>
 		</div>
 		
 		<!-- USER TYPE -->

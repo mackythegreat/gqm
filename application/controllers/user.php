@@ -84,7 +84,17 @@
 				
 				$config = array();				
 				$config['base_url'] = site_url('user/display_users');
-				$config['total_rows'] = $this->db->count_all('user');
+
+				if ($this->session->userdata('is_admin') == 1)
+				{
+					$config['total_rows'] = $this->db->count_all('user');
+				}
+				else
+				{
+					$query = $this->db->where('team_id', $this->session->userdata('team_id'))->get('user');
+					$config['total_rows'] = $query->num_rows();
+				}
+				
 				$config['per_page'] = 10;
 				$config["uri_segment"] = 3;
 				$choice = $config["total_rows"]/$config["per_page"];
@@ -113,7 +123,14 @@
 				$this->pagination->initialize($config);
 
 				$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-				$data["users_table"] = $this->m_user->get_all_users($config["per_page"], $page, '', '');
+				
+				$team_id = '';
+				if($this->session->userdata('is_admin') != 1)
+				{
+					$team_id = $this->session->userdata('team_id');
+				}
+
+				$data["users_table"] = $this->m_user->get_all_users($config["per_page"], $page, $team_id, '');
 				$data["pagination"] = $this->pagination->create_links();
 
 				$this->load->view('header');
@@ -196,22 +213,22 @@
 		
 		public function change_password()
 		{
-			$eid = $this->session->userdata('eid');
+			$id = $this->session->userdata('id');
 			
 			if($this->validate_change_password()===FALSE)
 			{
-				$row = $this->m_user->get_user_details($eid);
+				$row = $this->m_user->get_user_details($id);
 				$data['user_detail'] = $row->result();
 				return $this->load->view('change_user_password',$data);
 			}
 			else
 			{
-				$row = $this->m_user->get_user_details($eid);
+				$row = $this->m_user->get_user_details($id);
 				$user_data['user_detail'] = $row->result();
 				
 				$data['password'] = md5($this->input->post('password'));
 				$data['is_password_changed'] = 1;
-				$this->m_user->update_user($eid,$data);
+				$this->m_user->update_user($id,$data);
 				
 				foreach ($user_data['user_detail'] as $users_item){}
 				

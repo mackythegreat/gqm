@@ -66,6 +66,7 @@
 			$this->db->from('user');
 			$this->db->join('capability', 'user.team_id = capability.id');
 			$this->db->join('career_level', 'career_level.level = user.career_level_id');
+			
 			$this->db->order_by("capability.id", "asc"); 
 			$query = $this->db->get();
 			
