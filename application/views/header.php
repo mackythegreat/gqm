@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="app">
 	<head>
 		<meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
 		<!-- <meta http-equiv="refresh" content="5" /> -->

@@ -8,7 +8,9 @@
 	<?php $user_type = array ('' => 'All', 'User' => 'User', 'Lead' => 'Lead'); ?>
 	
 	
+	
 	<div class="container">
+	<?php if($this->session->flashdata('message')){ ?> <div class="alert alert-success text-center"> <?php echo $this->session->flashdata('message'); ?> </div> <?php } ?>
 		<div class="row">
 			<div class="small col-md-3 well">
 		
@@ -29,7 +31,7 @@
 					
 					<hr />
 					
-					<?php if($this->session->flashdata('message')){ ?> <div class="alert alert-danger text-center"> <?php echo $this->session->flashdata('message'); ?> </div> <?php } ?>
+					
 				</div>
 			</div>
 			
@@ -53,8 +55,7 @@
 			
 			<div class="col-md-3">
 			<?php //echo form_open('user/batch_reset/'.$uri); ?>
-			<?php echo form_open('user/batch_reset/'); ?>
-			<?php echo form_submit('submit','Reset Password', "class='btn btn-primary btn-sm pull-left'");?> 
+			
 			</div>
 			
 			<!-- END -->
@@ -68,7 +69,7 @@
 				<table class= "table small">
 					<thead>
 						<tr style="background-color:#333;color:#fff;">
-							<th></th>
+							
 							<th class="text-center">ENTERPRISE ID</th>
 							<th class="text-center">CAREER LEVEL</th>
 							<th class="text-center">TYPE</th>
@@ -79,11 +80,10 @@
 					<?php //$count = $this->m_user->get_all_users($offset,$page,$search); ?>
 					<?php //if($count->num_rows()>0):?>
 					
+				
 					<?php foreach ($users_table as $users_item):?>
 						<tbody>
 							<tr>
-								<td><?php echo form_checkbox('id[]',$users_item->id,FALSE); ?></td>
-								
 								
 								<td><?php echo $users_item->eid;?></td>
 								
@@ -91,24 +91,30 @@
 								<td class="text-center"><?php echo $users_item->user_type;?></td>
 								<td class="text-center"><?php echo $users_item->team;?></td>
 								
-								<td><a href='<?php echo base_url();?>user/update_user/<?php echo $users_item->id?>' 
-												class='btn btn-info btn-lg btn-xs' data-toggle='tooltip' 
-												title='Edit <?php echo $users_item->eid ?> information'>
-												<span class='glyphicon glyphicon-pencil'></span></a></td>
+								<!--START UPDATE USER-->
+								<td><a href='#'  data-toggle="modal" data-target="#editUser" class='update_user btn btn-warning btn-lg btn-xs'
+								data-id='<?php echo $users_item->id;?>' 
+								data-eid='<?php echo $users_item->eid;?>'
+								data-career_level_id='<?php echo $users_item->career_level_id;?>'
+								data-team_id='<?php echo $users_item->team_id;?>'
+								data-user_type='<?php echo $users_item->user_type;?>'
+								data-is_admin='<?php echo $users_item->is_admin;?>'
+								data-is_qa_rep='<?php echo $users_item->is_qa_rep;?>'
+								><span class='glyphicon glyphicon-th-list'></span></a>
+								</td>
+								<?php $this->view('/modals/update_user');?>
+								<!--END UPDATE USER-->
 								
 								<td><a href='<?php echo base_url();?>user/reset_password/<?php echo $users_item->id?>/<?php echo $users_item->eid?>'
 												class='btn btn-warning btn-lg btn-xs' data-toggle='tooltip' 
 												title='Reset <?php echo $users_item->eid ?> password'>
 												<span class='glyphicon glyphicon-refresh'></span></a></td>
 								
-								<?php if($this->session->userdata('is_admin')!=1 ) { $td = '<td class = "hidden">'; } 
-								else { $td = '<td class = "show">';}?>
-							
-								<?php if($users_item->is_active != 0){ echo $td ?>
-									<a href='<?php echo base_url();?>user/set_to_inactive/<?php echo $users_item->id?>/<?php echo $users_item->eid?>' class='btn btn-danger btn-lg btn-xs' data-toggle='tooltip' title='Deactivate <?php echo $users_item->eid ?>'>
+								<?php if($users_item->is_active != 0){ ?>
+									<td><a href='<?php echo base_url();?>user/set_to_inactive/<?php echo $users_item->id?>/<?php echo $users_item->eid?>' class='btn btn-danger btn-lg btn-xs' data-toggle='tooltip' title='Deactivate <?php echo $users_item->eid ?>'>
 										<span class='glyphicon glyphicon-ban-circle'></span></a></td>
-								<?php } else{ echo $td ?>
-									<a href='<?php echo base_url();?>user/set_to_active/<?php echo $users_item->id?>/<?php echo $users_item->eid?>' class='btn btn-success btn-lg btn-xs' data-toggle='tooltip' title='Reactivate <?php echo $users_item->eid?>'>
+								<?php } else{  ?>
+									<td><a href='<?php echo base_url();?>user/set_to_active/<?php echo $users_item->id?>/<?php echo $users_item->eid?>' class='btn btn-success btn-lg btn-xs' data-toggle='tooltip' title='Reactivate <?php echo $users_item->eid?>'>
 										<span class='glyphicon glyphicon-ok-circle'></span></a></td>
 								<?php } ?>
 							</tr>
@@ -116,7 +122,7 @@
 					<?php endforeach;?>
 					
 					
-					<?php form_close(); ?>
+					
 				</table>
 				<div style="text-align:center">
 					<?php if($pagination != false ) { echo $pagination; }	?>

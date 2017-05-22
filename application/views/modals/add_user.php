@@ -3,7 +3,7 @@
     <div class="modal-dialog">
    
       <!-- Modal content-->
-      <div class="modal-content" ng-app="app" ng-controller="MainCtrl as main">
+      <div class="modal-content" ng-controller="MainCtrl as main">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
 		  

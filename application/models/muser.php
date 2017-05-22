@@ -62,12 +62,12 @@
             }
 			
 			$this->db->limit($limit, $start);
-			$this->db->select('user.id, user.eid, career_level.title, user.user_type, capability.team, user.is_active');
+			$this->db->select('user.id, user.eid, user.team_id, user.career_level_id, user.is_admin, user.is_qa_rep,career_level.title, user.user_type, capability.team, user.is_active');
 			$this->db->from('user');
 			$this->db->join('capability', 'user.team_id = capability.id');
 			$this->db->join('career_level', 'career_level.level = user.career_level_id');
 			
-			$this->db->order_by("capability.id", "asc"); 
+			$this->db->order_by("user.id", "desc"); 
 			$query = $this->db->get();
 			
 			if ($query->num_rows() > 0) {
@@ -92,7 +92,7 @@
 			$this->db->from('user');
 			$this->db->join('capability', 'user.team_id = capability.id');
 			$this->db->join('career_level', 'career_level.level = user.career_level_id');
-			$this->db->order_by("capability.id", "asc"); 
+			$this->db->order_by("user.id", "desc"); 
 			$query = $this->db->get();
 			return $query->num_rows();
 		}

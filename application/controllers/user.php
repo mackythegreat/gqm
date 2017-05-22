@@ -78,9 +78,9 @@
 		{
 			if(($this->session->userdata('user_type') == 'Lead') or ($this->session->userdata('is_admin') == 1))
 			{
-				$id = $this->session->userdata('id');
+				/*$id = $this->session->userdata('id');
 				$usr_row = $this->m_user->get_user_details($id);
-				$user_data['user_detail'] = $usr_row->result();
+				$user_data['user_detail'] = $usr_row->result();*/
 				
 				$config = array();				
 				$config['base_url'] = site_url('user/display_users');
@@ -148,15 +148,18 @@
 		{
 			if(($this->session->userdata('user_type') == 'Lead') or ($this->session->userdata('is_admin') == 1))
 			{
-				$eid = $this->session->userdata('eid');
-				$usr_row = $this->m_user->get_user_details($eid);
+				$id = $this->session->userdata('id');
+				$usr_row = $this->m_user->get_user_details($id);
 				$user_data['user_detail'] = $usr_row->result();
 				
-				if($this->session->userdata('user_type') == 'Lead' && ($this->session->userdata('is_admin') != 1)){ // if the user_type is lead, just display its respective resource capability_search
+				// if the user_type is lead, just display its respective resource capability_search
+				if($this->session->userdata('user_type') == 'Lead' && ($this->session->userdata('is_admin') != 1)) 
+				{ 
 					$capabiltity_search = $this->session->userdata('team_id');
 					$usertype_search = '';
 				}
-				else{
+				else
+				{
 					$capabiltity_search = ($this->input->post("capability_search"))? $this->input->post("capability_search") : '';
 					$capabiltity_search = ($this->uri->segment(3)) ? $this->uri->segment(3) : $capabiltity_search;
 					
@@ -253,10 +256,8 @@
 		
 		public function set_to_inactive($id=0,$eid)
 		{	
-		
 			$this->m_user->set_to_inactive($id);
 			$this->session->set_flashdata('message',$eid.'\'s acccount has been deactivated!');
-		
 			redirect('user/display_users');
 		}
 		
@@ -295,7 +296,7 @@
 					{
 						$this->session->set_flashdata('message',$user.'\' password has been reset!');
 					}
-					redirect('user/display_users/'.$uri,'refresh');
+					//redirect('user/display_users/'.$uri,'refresh');
 				}
 				else
 				{
@@ -345,7 +346,7 @@
 				$is_unique =  '';
 			}
 			else{
-				$is_unique =  '|is_unique[user.eid]';  
+				$is_unique = '|is_unique[user.eid]';  
 			}
 			
 			$this->form_validation->set_rules('eid', 'Enterprise ID','trim|required|min_length[5]|max_length[30]'.$is_unique);
@@ -353,12 +354,13 @@
 			return $this->form_validation->run();	
 		}
 		
-		public function update_user($id)
+		public function update_user($id='')
 		{
 			if(($this->session->userdata('user_type') == 'Lead') or ($this->session->userdata('is_admin') == 1))
 			{
-				if($this->submit_validate($id)===FALSE)
-				{
+				$id = $this->input->post('id');
+			
+				if($this->submit_validate($id)===FALSE){
 					$row = $this->m_user->get_user_details($id);
 					$data['users_detail'] = $row->result();
 					return $this->load->view('update_user',$data);
@@ -376,7 +378,7 @@
 					$data['is_qa_rep'] = $this->input->post('is_qa_rep');
 				
 					$this->m_user->update_user($id, $data);
-					$this->session->set_flashdata('message', $eid.'\'s information has been updated');
+					$this->session->set_flashdata('message', $data['eid'].'\'s information has been updated');
 					redirect('user/display_users');	
 				}
 			}
@@ -385,12 +387,10 @@
 				$this->session->set_flashdata('message','You are not allowed to view this page!');
 				redirect('user/user_dashboard');
 			}
-			
 		}
 		
 		public function create_todo()
 		{
-			
 			$data['eid'] = $this->session->userdata('eid');
 			$data['task'] = $this->input->post('task');
 			$data['create_date'] = date('Y-m-d');
@@ -398,7 +398,7 @@
 			$this->m_user->insert_todo($data);
 			
 			$this->session->set_flashdata('message','New to-do item has been added!');
-					redirect('user/user_dashboard','refresh');
+			redirect('user/user_dashboard','refresh');
 		}
 	}
 ?>
