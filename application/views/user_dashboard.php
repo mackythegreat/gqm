@@ -2,80 +2,195 @@
 <body>
 	<div class="container">
 		<div class="row" style="text-align:center">
-			<div class="col-md-3 well pre-scrollable" style="display:inline-block; text-align:left; float:left; margin-left:10%;" data-spy="scroll" data-offset="10">
-			<label><span class="text-danger"></span>Project Catalog</label><br />
+		
+			<div class="col-md-4 well" style="display:inline-block; text-align:left; float:left;" data-spy="scroll" data-offset="10">
+				<h3>Project Catalog</h3>
 				
+				<div class="panel panel-default">
+				
+				<?php foreach($projects as $proj_items):
 					
-						<?php foreach($projects as $proj_items):?>
+					switch ($proj_items->status) {
+						case "Not Started": 
+							$folder_color = "color:#d9534f;"; 
+						break; 
+						case "In Progress": 
+							$folder_color = "color:#f0ad4e;"; 
+						break;
+						case "Completed": 
+							$folder_color = "color:#5cb85c;"; 
+						break;
+				}?>
+				
+
+				<div class="panel-heading librePanelHeading">
+					<div class="panel-title" class="panel">
+						<b class="pull-right glyphicon glyphicon-folder-close libreMenuIcon" style='<?php echo $folder_color;?>'></b>
+
+						<a class="small" data-toggle="collapse" href="<?php echo '#'.$proj_items->proj_id;?>">
+							<span><?php echo $proj_items->proj_name;?></span>
+						</a>
+					</div>
+				</div>
+					
+					<ul class="list-group collapse" id="<?php echo $proj_items->proj_id;?>" style="list-style: none;">
+					
+						<!--<div id='<?php echo $proj_items->proj_id;?>' class="panel-collapse collapse out">-->
+						<div class="panel-body">
 							
-							<div class="panel-group" id="accordion">
-								<?php 
-								switch ($proj_items->status) {
-									case "Not Started": 
-										$panel = "panel panel-danger"; 
-									break; 
-									case "In Progress": 
-										$panel = "panel panel-warning"; 
-									break;
-									case "Completed": 
-										$panel = "panel panel-success"; 
-									break;
-								}?>
-								<div class = '<?php echo $panel; ?>'>
-								  <div class="panel-heading">
-									<p class="panel-title">
-									  <a data-toggle="collapse" data-parent="#accordion" href='<?php echo '#'.$proj_items->proj_id;?>' class='small'> <?php echo $proj_items->proj_name;?></a>
-									</p>
-								  </div>
-								  <div id='<?php echo $proj_items->proj_id;?>' class="panel-collapse collapse out">
-									<div class="panel-body">
-										<table class='table'>
-												<tbody>
-													<tr>
-														<th>START</th>
-														<th>END</th>
-														<th>STATUS</th>
-													</tr>
-													<tr>
-														<td><?php echo $proj_items->start_date;?></td>
-														<td><?php echo $proj_items->end_date;?></td>
-														<td><?php echo $proj_items->status;?></td>
-														
-													</tr>
-												</tbody>
-										</table>
-										<table class='table'>
-										
-										<tr>
-										<thead><td>TECHNICAL DESIGN</tr><thead>
-										<?php foreach ($td as $td_items):?>
-											<!-- Technical Design -->
-											<?php if(($td_items->proj_id == $proj_items->proj_id) && ($td_items->req_type_id == 1)){ ?>
-												<td><?php if ($td_items->doc_link){ echo anchor($td_items->doc_link, $td_items->doc_name, 'target="_blank"'); }?></td>
-											<?php } endforeach;?>
+							<li class="list-group-item librePanelListGroupItem">
+								<table class="table">
+									<tbody>
+										<tr style="background-color:#333;color:#fff;">
+											<th>START</th>
+											<th>END</th>
+											<th>STATUS</th>
 										</tr>
-										
 										<tr>
-										<thead><td>ENTRY-EXIT</td><thead>
-										<?php foreach ($td as $td_items):?>
-											<!-- Entry-exit -->
-											<?php if(($td_items->proj_id == $proj_items->proj_id) && ($td_items->req_type_id == 2)){ ?>
-												<tr><td><?php if ($td_items->doc_link){ echo anchor($td_items->doc_link, $td_items->doc_name, 'target="_blank"'); }?></td></tr>
-											<?php } endforeach;?>
+											<td><?php echo $proj_items->start_date;?></td>
+											<td><?php echo $proj_items->end_date;?></td>
+											<td><?php echo $proj_items->status;?></td>
 										</tr>
-										</table>
-									</div>
-								  </div>
+									</tbody>
+								</table>
+							</li>
+							
+							<!-- Technical Design -->
+							<li class="librePanelListGroupItem">
+							<div class="panel-heading librePanelHeading">
+								<div class="panel-title" class="panel">
+									<b class="pull-right libreMenuIcon" ></b>
+					
+									<a class="small" data-toggle="collapse" href="<?php echo '#td'.$proj_items->proj_id;?>">
+										<span>TECHNICAL DESIGN</span>
+									</a>
 								</div>
 							</div>
+							
+							<ul class="list-group collapse" id="<?php echo 'td'.$proj_items->proj_id;?>" style="list-style: none;">
+								<?php foreach ($td as $td_items):?>
+									<?php if(($td_items->proj_id == $proj_items->proj_id) && ($td_items->req_type_id == 1)){ ?>
+									<li class="list-group-item small">
+									
+									
+										<?php if ($td_items->doc_link){ echo anchor($td_items->doc_link, $td_items->doc_name, 'target="_blank"'); ?>
+									</li>
+									<?php }?>
+								<?php } endforeach;?>
+							</ul>
+							</li>
+							
+							<!-- Build -->
+							<li class="librePanelListGroupItem">
+							<div class="panel-heading librePanelHeading">
+								<div class="panel-title" class="panel">
+									<b class="pull-right libreMenuIcon" ></b>
+					
+									<a class="small" data-toggle="collapse" href="<?php echo '#bld'.$proj_items->proj_id;?>">
+										<span>BUILD</span>
+									</a>
+								</div>
+							</div>
+							
+							<ul class="list-group collapse" id="<?php echo 'bld'.$proj_items->proj_id;?>" style="list-style: none;">
+								<?php foreach ($td as $td_items):?>
+									<?php if(($td_items->proj_id == $proj_items->proj_id) && ($td_items->req_type_id == 2)){ ?>
+									<li class="list-group-item small">
+									
+									
+										<?php if ($td_items->doc_link){ echo anchor($td_items->doc_link, $td_items->doc_name, 'target="_blank"'); ?>
+									</li>
+									<?php }?>
+								<?php } endforeach;?>
+							</ul>
+							</li>
+							
+							<!-- Checklist -->
+							<li class="librePanelListGroupItem">
+							<div class="panel-heading librePanelHeading">
+								<div class="panel-title" class="panel">
+									<b class="pull-right libreMenuIcon" ></b>
+									<a class="small" data-toggle="collapse" href="<?php echo '#chk'.$proj_items->proj_id;?>">
+										<span>CHECKLIST</span>
+									</a>
+								</div>
+							</div>
+							
+							<ul class="list-group collapse" id="<?php echo 'chk'.$proj_items->proj_id;?>" style="list-style: none;">
+								<?php foreach ($td as $td_items):?>
+									<?php if(($td_items->proj_id == $proj_items->proj_id) && ($td_items->req_type_id == 3)){ ?>
+									<li class="list-group-item small">
+										<?php if ($td_items->doc_link){ echo anchor($td_items->doc_link, $td_items->doc_name, 'target="_blank"'); ?>
+									</li>
+									<?php }?>
+								<?php } endforeach;?>
+							</ul>
+							</li>
+							
+							<!-- Testing -->
+							<li class="librePanelListGroupItem">
+							<div class="panel-heading librePanelHeading">
+								<div class="panel-title" class="panel">
+									<b class="pull-right libreMenuIcon" ></b>
+					
+									<a class="small" data-toggle="collapse" href="<?php echo '#ut'.$proj_items->proj_id;?>">
+										<span>TESTING</span>
+									</a>
+								</div>
+							</div>
+							
+							<ul class="list-group collapse" id="<?php echo 'ut'.$proj_items->proj_id;?>" style="list-style: none;">
+								<?php foreach ($td as $td_items):?>
+									<?php if(($td_items->proj_id == $proj_items->proj_id) && ($td_items->req_type_id == 4)){ ?>
+									<li class="list-group-item small">
+									
+									
+										<?php if ($td_items->doc_link){ echo anchor($td_items->doc_link, $td_items->doc_name, 'target="_blank"'); ?>
+									</li>
+									<?php }?>
+								<?php } endforeach;?>
+							</ul>
+							</li>
+							
+							<!-- MOTM -->
+							<li class="librePanelListGroupItem">
+							<div class="panel-heading librePanelHeading">
+								<div class="panel-title" class="panel">
+									<b class="pull-right libreMenuIcon" ></b>
+					
+									<a class="small" data-toggle="collapse" href="<?php echo '#motm'.$proj_items->proj_id;?>">
+										<span>MOTM</span>
+									</a>
+								</div>
+							</div>
+							
+							<ul class="list-group collapse" id="<?php echo 'motm'.$proj_items->proj_id;?>" style="list-style: none;">
+								<?php foreach ($td as $td_items):?>
+									<?php if(($td_items->proj_id == $proj_items->proj_id) && ($td_items->req_type_id == 5)){ ?>
+									<li class="list-group-item small">
+									
+									
+										<?php if ($td_items->doc_link){ echo anchor($td_items->doc_link, $td_items->doc_name, 'target="_blank"'); ?>
+									</li>
+									<?php }?>
+								<?php } endforeach;?>
+							</ul>
+							</li>
 
-						<?php endforeach;?>
+						</div>
+						<!--</div>-->
+					</ul>
+
+
+				<?php endforeach;?>
+
 						 
 				
 			</div>
+			</div>
 			
-			<div class="col-md-3 well" style="display:inline-block; text-align:left; float:none;">
-				<label><span class="text-danger"></span>Assigned Tasks</label><br />
+			<div class="col-md-4 well" style="display:inline-block; text-align:left; float:none;">
+				<h3>Assigned Tasks</h3>
 				<table class='table'>
 					<?php if ($proj_req != FALSE){ ?>
 					
@@ -106,8 +221,8 @@
 				</table>
 			</div>
 			
-			<div class="col-md-3 well" style="display:inline-block; text-align:left; float:right; margin-right:10%;">
-				<label><span class="text-danger"></span>To-Do List</label><br />
+			<div class="col-md-3 well" style="display:inline-block; text-align:left; float:right;">
+				<h3>To-Do List</h3>
 				<?php echo form_open('user/create_todo'); ?>
 					
 
