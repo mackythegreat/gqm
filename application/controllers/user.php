@@ -77,11 +77,7 @@
 		public function display_users() 
 		{
 			if(($this->session->userdata('user_type') == 'Lead') or ($this->session->userdata('is_admin') == 1))
-			{
-				/*$id = $this->session->userdata('id');
-				$usr_row = $this->m_user->get_user_details($id);
-				$user_data['user_detail'] = $usr_row->result();*/
-				
+			{				
 				$config = array();				
 				$config['base_url'] = site_url('user/display_users');
 

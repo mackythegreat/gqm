@@ -28,7 +28,7 @@
 			}
 		}
 		
-		public function display_projects($page=0,$offset=10,$capabiltity_search='',$status_search='')
+		/*public function display_projects($page=0,$offset=10,$capabiltity_search='',$status_search='')
 		{  
 			if(($this->session->userdata('user_type') == 'Lead') || ($this->session->userdata('is_admin') != 0) || ($this->session->userdata('is_qa_rep') != 0))
 			{
@@ -60,7 +60,75 @@
 				$this->session->set_flashdata('message','You are not allowed to view this page!');
 				redirect('user/user_dashboard');
 			}
+		}*/
+		
+		public function display_projects() 
+		{
+			if(($this->session->userdata('user_type') == 'Lead') || ($this->session->userdata('is_admin') != 0) || ($this->session->userdata('is_qa_rep') != 0))
+			{				
+				$config = array();				
+				$config['base_url'] = site_url('project/display_projects');
+
+				if ($this->session->userdata('is_admin') == 1)
+				{
+					$config['total_rows'] = $this->db->count_all('project');
+				}
+				else
+				{
+					$query = $this->db->where('team_id', $this->session->userdata('team_id'))->get('project');
+					$config['total_rows'] = $query->num_rows();
+				}
+				
+				$config['per_page'] = 10;
+				$config["uri_segment"] = 3;
+				$choice = $config["total_rows"]/$config["per_page"];
+				$config["num_links"] = floor($choice);
+				
+				//config for bootstrap pagination class integration
+				$config['full_tag_open'] = '<ul class="pagination">';
+				$config['full_tag_close'] = '</ul>';
+				$config['first_link'] = '&#171';
+				$config['last_link'] = '&#187';
+				$config['first_tag_open'] = '<li>';
+				$config['first_tag_close'] = '</li>';
+				$config['prev_link'] = '&#139';
+				$config['prev_tag_open'] = '<li class="prev">';
+				$config['prev_tag_close'] = '</li>';
+				$config['next_link'] = '&#155';
+				$config['next_tag_open'] = '<li>';
+				$config['next_tag_close'] = '</li>';
+				$config['last_tag_open'] = '<li>';
+				$config['last_tag_close'] = '</li>';
+				$config['cur_tag_open'] = '<li class="active"><a href="#">';
+				$config['cur_tag_close'] = '</a></li>';
+				$config['num_tag_open'] = '<li>';
+				$config['num_tag_close'] = '</li>';
+				
+				$this->pagination->initialize($config);
+
+				$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+				
+				$team_id = '';
+				if($this->session->userdata('is_admin') != 1)
+				{
+					$team_id = $this->session->userdata('team_id');
+				}
+
+				$projects_result = $this->m_project->get_all_projects($config["per_page"], $page, $team_id, '');
+				$data["projects_table"] = $projects_result->result();
+				$data["pagination"] = $this->pagination->create_links();
+
+				$this->load->view('header');
+				$this->load->view('display_projects',$data);
+				$this->load->view('footer');
+			}
+			else
+			{
+				$this->session->set_flashdata('message','You are not allowed to view this page!');
+				redirect('user/user_dashboard');
+			}
 		}
+		
 		
 		public function show_project_requirements($proj_id)
 		{    	

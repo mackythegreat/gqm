@@ -85,6 +85,9 @@
 					<?php form_close(); ?>
 					<?php //endif; ?>
 				</table>
+				<div style="text-align:center">
+					<?php if($pagination != false ) { echo $pagination; }	?>
+				</div>
 				</div>
 			</div>
 		</div>

@@ -87,7 +87,7 @@
 									<b class="pull-right libreMenuIcon" ></b>
 					
 									<a class="small" data-toggle="collapse" href="<?php echo '#bld'.$proj_items->proj_id;?>">
-										<span>BUILD</span>
+										<span>BUILD </span>
 									</a>
 								</div>
 							</div>

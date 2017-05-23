@@ -7,34 +7,35 @@
 			parent::__construct(); 	
 			$this->load->database();	
 		}
-	
-		public function get_all_projects($offset,$count,$capabiltity_search, $status_search)
+		
+		public function get_all_projects($limit, $start, $capabiltity_search, $status_search) 
 		{
 			if ($capabiltity_search!='')
 			{
-				$this->db->where("(capability_id LIKE '%$capabiltity_search%')");
+				$this->db->where("(capability.id LIKE '%$capabiltity_search%')");
             }
 			if ($status_search!='')
 			{
-				$this->db->where("(status LIKE '%$status_search%')");
+				$this->db->where("(project.status LIKE '%$status_search%')");
             }
 			
-			$this->db->select('project.proj_id, project.proj_name, capability.team, project.start_date, project.end_date, project.status');
+			$this->db->limit($limit, $start);
+			$this->db->select('project.proj_id as proj_id, project.proj_name as proj_name, capability.team as team, project.start_date as start_date, project.end_date as end_date, project.status as status');
 			$this->db->from('project');
 			$this->db->join('capability', 'project.capability_id = capability.id');
 			$this->db->order_by("project.proj_id", "desc"); 
+			
 			$query = $this->db->get();
 			
-			if($query->num_rows() > 0)
-			{
+			if ($query->num_rows() > 0) {
+				
 				return $query;
-			}	
-			else
-			{	
-				$this->session->set_flashdata('message','No projects found');;	
-				redirect('project/display_projects','refresh');
-			}			
+			}
+			$this->session->set_flashdata('message','No Project/s found!');
+			redirect('project/display_projects','refresh');
 		}
+		
+		
 		
 		public function insert_project($data)
 		{
