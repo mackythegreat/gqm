@@ -28,40 +28,6 @@
 			}
 		}
 		
-		/*public function display_projects($page=0,$offset=10,$capabiltity_search='',$status_search='')
-		{  
-			if(($this->session->userdata('user_type') == 'Lead') || ($this->session->userdata('is_admin') != 0) || ($this->session->userdata('is_qa_rep') != 0))
-			{
-				if($this->session->userdata('is_admin') == 1)
-				{
-					$capabiltity_search = $this->input->post('capability_search');
-				}
-				else
-				{
-					$capabiltity_search = $this->session->userdata('team_id');
-				}
-				
-				$status_search = $this->input->post('status_search');
-				
-				$row = $this->m_project->get_all_projects($offset, $page, $capabiltity_search, $status_search);
-				$data['projects_table'] = $row->result();
-			
-				$data['offset'] = $offset;
-				$data['page'] = $page;
-				
-				$data['title'] = 'Manage Projects';
-				$data['norecord'] = '';
-				$this->load->view('header');
-				$this->load->view('display_projects',$data);
-				$this->load->view('footer');
-			}
-			else
-			{
-				$this->session->set_flashdata('message','You are not allowed to view this page!');
-				redirect('user/user_dashboard');
-			}
-		}*/
-		
 		public function display_projects() 
 		{
 			if(($this->session->userdata('user_type') == 'Lead') || ($this->session->userdata('is_admin') != 0) || ($this->session->userdata('is_qa_rep') != 0))
@@ -121,6 +87,77 @@
 				$this->load->view('header');
 				$this->load->view('display_projects',$data);
 				$this->load->view('footer');
+			}
+			else
+			{
+				$this->session->set_flashdata('message','You are not allowed to view this page!');
+				redirect('user/user_dashboard');
+			}
+		}
+		
+		public function filter()
+		{
+			if(($this->session->userdata('user_type') == 'Lead') || ($this->session->userdata('is_admin') != 0) || ($this->session->userdata('is_qa_rep') != 0))
+			{
+				/*$id = $this->session->userdata('id');
+				$usr_row = $this->m_user->get_user_details($id);
+				$user_data['user_detail'] = $usr_row->result();*/
+				
+				// if the user_type is lead, just display its respective resource capability_search
+				if($this->session->userdata('user_type') == 'Lead' && ($this->session->userdata('is_admin') != 1)) 
+				{ 
+					$capabiltity_search = $this->session->userdata('team_id');
+					$status_search = '';
+				}
+				else
+				{
+					$capabiltity_search = ($this->input->post("capability_search"))? $this->input->post("capability_search") : '';
+					$capabiltity_search = ($this->uri->segment(3)) ? $this->uri->segment(3) : $capabiltity_search;
+					
+					$status_search = ($this->input->post("status_search"))? $this->input->post("status_search") : '';
+					$status_search = ($this->uri->segment(5)) ? $this->uri->segment(5) : $status_search;
+				}
+
+				// pagination settings
+				$config = array();
+				$config['base_url'] = site_url("project/filter/$capabiltity_search");
+				$config['total_rows'] = $this->m_project->proj_count($capabiltity_search,$status_search);
+				$config['per_page'] = 10;
+				$config["uri_segment"] = 4;
+				$choice = $config["total_rows"]/$config["per_page"];
+				$config["num_links"] = floor($choice);
+
+				// integrate bootstrap pagination
+				$config['full_tag_open'] = '<ul class="pagination">';
+				$config['full_tag_close'] = '</ul>';
+				$config['first_link'] = false;
+				$config['last_link'] = false;
+				$config['first_tag_open'] = '<li>';
+				$config['first_tag_close'] = '</li>';
+				$config['prev_link'] = 'Prev';
+				$config['prev_tag_open'] = '<li class="prev">';
+				$config['prev_tag_close'] = '</li>';
+				$config['next_link'] = 'Next';
+				$config['next_tag_open'] = '<li>';
+				$config['next_tag_close'] = '</li>';
+				$config['last_tag_open'] = '<li>';
+				$config['last_tag_close'] = '</li>';
+				$config['cur_tag_open'] = '<li class="active"><a href="#">';
+				$config['cur_tag_close'] = '</a></li>';
+				$config['num_tag_open'] = '<li>';
+				$config['num_tag_close'] = '</li>';
+				$this->pagination->initialize($config);
+
+				$data['page'] = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
+				$project_result = $this->m_project->get_all_projects($config['per_page'], $data['page'], $capabiltity_search,$status_search);
+				$data['projects_table'] = $project_result->result();
+				$data['pagination'] = $this->pagination->create_links();
+
+				//load view
+				$this->load->view('header');
+				$this->load->view('display_projects',$data);
+				$this->load->view('footer');
+				
 			}
 			else
 			{

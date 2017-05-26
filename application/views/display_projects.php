@@ -16,7 +16,7 @@
 					<div class="show">
 					<?php } ?>
 		
-						<?php echo form_open('project/display_projects'); ?></p>
+						<?php echo form_open('project/filter'); ?></p>
 						
 							<label><span class="text-danger"><b></b></span> Capability</label><br />
 							<?php echo form_dropdown('capability_search', $capability, '', 'class="form-control form-control-lg"'); ?>

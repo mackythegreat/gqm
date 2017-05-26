@@ -35,6 +35,25 @@
 			redirect('project/display_projects','refresh');
 		}
 		
+		public function proj_count($capabiltity_search='', $status_search='') {
+			if ($capabiltity_search!='')
+			{
+				$this->db->where("(capability.id LIKE '%$capabiltity_search%')");
+            }
+			if ($status_search!='')
+			{
+				$this->db->where("(project.status LIKE '%$status_search%')");
+            }
+			
+			$this->db->select('project.proj_id as proj_id, project.proj_name as proj_name, capability.team as team, project.start_date as start_date, project.end_date as end_date, project.status as status');
+			$this->db->from('project');
+			$this->db->join('capability', 'project.capability_id = capability.id');
+			$this->db->order_by("project.proj_id", "desc"); 
+			
+			$query = $this->db->get();
+			return $query->num_rows();
+		}
+		
 		
 		
 		public function insert_project($data)

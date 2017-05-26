@@ -62,7 +62,7 @@
             }
 			
 			$this->db->limit($limit, $start);
-			$this->db->select('user.id, user.eid, career_level.title, user.user_type, capability.team, user.is_active');
+			$this->db->select('user.id as id, user.career_level_id as career_level_id, user.team_id as team_id, user.is_admin as is_admin, user.is_qa_rep as is_qa_rep, user.eid as eid, career_level.title as title, user.user_type as user_type, capability.team as team, user.is_active');
 			$this->db->from('user');
 			$this->db->join('capability', 'user.team_id = capability.id');
 			$this->db->join('career_level', 'career_level.level = user.career_level_id');

@@ -69,20 +69,20 @@
 							</div>
 							
 							<ul class="list-group collapse" id="<?php echo 'td'.$proj_items->proj_id;?>" style="list-style: none;">
-								
-								
-								<?php foreach ($td as $td_items):?>
-									
-									<?php if(($td_items->proj_id == $proj_items->proj_id) && ($td_items->req_type_id == 1)){ ?>
-									<li class="list-group-item small">
-										
-										
-										<?php if ($td_items->doc_link){ echo anchor($td_items->doc_link, $td_items->doc_name, 'target="_blank"');} 
-										?>
-									</li>
-									
-									<?php }else {?> <p class="small" style="text-align:center;">No Available Documents</p> 
-									<?php break;} endforeach;?>
+								<?php $count = 0;
+								 foreach ($td as $td_items):?>
+									<?php if(($td_items->proj_id == $proj_items->proj_id) && ($td_items->req_type_id == 1))
+									{ ?>
+										<li class="list-group-item small">
+											
+											<?php if ($td_items->doc_link){ echo anchor($td_items->doc_link, $td_items->doc_name, 'target="_blank"');} 
+											?>
+										</li>
+									<?php
+										$count++;
+									} 
+								endforeach;
+								if($count == 0){ echo "No Available Document"; }?>
 							</ul>
 							</li>
 							
@@ -99,15 +99,20 @@
 							</div>
 							
 							<ul class="list-group collapse" id="<?php echo 'bld'.$proj_items->proj_id;?>" style="list-style: none;">
-								<?php foreach ($td as $td_items):?>
-									<?php if(($td_items->proj_id == $proj_items->proj_id) && ($td_items->req_type_id == 2)){ ?>
-									<li class="list-group-item small">
-									
-									
-										<?php if ($td_items->doc_link){ echo anchor($td_items->doc_link, $td_items->doc_name, 'target="_blank"'); }?>
-									</li>
-									
-									<?php } endforeach;?>
+								<?php $count = 0;
+								 foreach ($td as $td_items):?>
+									<?php if(($td_items->proj_id == $proj_items->proj_id) && ($td_items->req_type_id == 2))
+									{ ?>
+										<li class="list-group-item small">
+											
+											<?php if ($td_items->doc_link){ echo anchor($td_items->doc_link, $td_items->doc_name, 'target="_blank"');} 
+											?>
+										</li>
+									<?php
+										$count++;
+									} 
+								endforeach;
+								if($count == 0){ echo "No Available Document"; }?>
 							</ul>
 							</li>
 							
@@ -123,13 +128,20 @@
 							</div>
 							
 							<ul class="list-group collapse" id="<?php echo 'chk'.$proj_items->proj_id;?>" style="list-style: none;">
-								<?php foreach ($td as $td_items):?>
-									<?php if(($td_items->proj_id == $proj_items->proj_id) && ($td_items->req_type_id == 3)){ ?>
-									<li class="list-group-item small">
-										<?php if ($td_items->doc_link){ echo anchor($td_items->doc_link, $td_items->doc_name, 'target="_blank"');} ?>
-									</li>
-									<?php }else {?> <p class="small" style="text-align:center;">No Available Documents</p> 
-									<?php break;} endforeach;?>
+								<?php $count = 0;
+								 foreach ($td as $td_items):?>
+									<?php if(($td_items->proj_id == $proj_items->proj_id) && ($td_items->req_type_id == 3))
+									{ ?>
+										<li class="list-group-item small">
+											
+											<?php if ($td_items->doc_link){ echo anchor($td_items->doc_link, $td_items->doc_name, 'target="_blank"');} 
+											?>
+										</li>
+									<?php
+										$count++;
+									} 
+								endforeach;
+								if($count == 0){ echo "No Available Document"; }?>
 							</ul>
 							</li>
 							
@@ -146,15 +158,20 @@
 							</div>
 							
 							<ul class="list-group collapse" id="<?php echo 'ut'.$proj_items->proj_id;?>" style="list-style: none;">
-								<?php foreach ($td as $td_items):?>
-									<?php if(($td_items->proj_id == $proj_items->proj_id) && ($td_items->req_type_id == 4)){ ?>
-									<li class="list-group-item small">
-									
-									
-										<?php if ($td_items->doc_link){ echo anchor($td_items->doc_link, $td_items->doc_name, 'target="_blank"'); }?>
-									</li>
-									<?php }else {?> <p class="small" style="text-align:center;">No Available Documents</p> 
-									<?php break;} endforeach;?>
+								<?php $count = 0;
+								 foreach ($td as $td_items):?>
+									<?php if(($td_items->proj_id == $proj_items->proj_id) && ($td_items->req_type_id == 4))
+									{ ?>
+										<li class="list-group-item small">
+											
+											<?php if ($td_items->doc_link){ echo anchor($td_items->doc_link, $td_items->doc_name, 'target="_blank"');} 
+											?>
+										</li>
+									<?php
+										$count++;
+									} 
+								endforeach;
+								if($count == 0){ echo "No Available Document"; }?>
 							</ul>
 							</li>
 							
@@ -171,15 +188,20 @@
 							</div>
 							
 							<ul class="list-group collapse" id="<?php echo 'motm'.$proj_items->proj_id;?>" style="list-style: none;">
-								<?php foreach ($td as $td_items):?>
-									<?php if(($td_items->proj_id == $proj_items->proj_id) && ($td_items->req_type_id == 5)){ ?>
-									<li class="list-group-item small">
-									
-									
-										<?php if ($td_items->doc_link){ echo anchor($td_items->doc_link, $td_items->doc_name, 'target="_blank"'); }?>
-									</li>
-									<?php }else {?> <p class="small" style="text-align:center;">No Available Documents</p> 
-									<?php break;} endforeach;?>
+								<?php $count = 0;
+								 foreach ($td as $td_items):?>
+									<?php if(($td_items->proj_id == $proj_items->proj_id) && ($td_items->req_type_id == 5))
+									{ ?>
+										<li class="list-group-item small">
+											
+											<?php if ($td_items->doc_link){ echo anchor($td_items->doc_link, $td_items->doc_name, 'target="_blank"');} 
+											?>
+										</li>
+									<?php
+										$count++;
+									} 
+								endforeach;
+								if($count == 0){ echo "No Available Document"; }?>
 							</ul>
 							</li>
 							
@@ -189,13 +211,13 @@
 								<div class="panel-title" class="panel">
 									<b class="pull-right libreMenuIcon" ></b>
 					
-									<a class="small" data-toggle="collapse" href="<?php echo '#motm'.$proj_items->proj_id;?>">
+									<a class="small" data-toggle="collapse" href="<?php echo '#rp'.$proj_items->proj_id;?>">
 										<span class="glyphicon glyphicon-chevron-down"> REVIEW POINTSHEET</span>
 									</a>
 								</div>
 							</div>
 							
-							<ul class="list-group collapse" id="<?php echo 'motm'.$proj_items->proj_id;?>" style="list-style: none;">
+							<ul class="list-group collapse" id="<?php echo 'rp'.$proj_items->proj_id;?>" style="list-style: none;">
 								<?php foreach ($td as $td_items):?>
 									<li class="list-group-item small">
 										<?php if ($td_items->doc_link){ echo anchor($td_items->rvw_link, $td_items->rvw_name, 'target="_blank"'); ?>
@@ -313,11 +335,13 @@
 					}
 				?>
 				
-				
-				
+				<?php if($todo_table == FALSE) {?>
+				<div class="panel-group">
+					<?php echo "Nothing to do"?>
+				</div>
+				<?php } else {?>
 				<div class="panel-group">
 				<?php foreach ($todo_table as $task_item):
-
 					
 					switch ($proj_items->status) {
 						case "Not Started": 
@@ -348,9 +372,6 @@
 						data-tsk_tg_date='<?php echo $task_item->target_date; ?>'
 						><span class='glyphicon glyphicon-pencil'></span></a>
 						
-			
-						
-						
 						<a href='<?php echo base_url();?>user/complete_todo/<?php echo $task_item->id?>' 
 						class='btn btn-xs pull-right' style='margin-left: 20px;' data-toggle='tooltip'>
 						<span class='glyphicon glyphicon-check'></span></a>
@@ -365,7 +386,7 @@
 					</div>
 				<?php endforeach; ?>
 				</div>
-				
+				<?php }?>
 				
 			</div>
 		

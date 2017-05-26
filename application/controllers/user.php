@@ -57,6 +57,10 @@
 				{
 					$data['todo_table'] = $row->result();
 				}
+				else
+				{
+					$data['todo_table'] = FALSE;
+				}
 				
 				/* Retrieve technical design */
 				
@@ -72,7 +76,7 @@
 			{
 				header('Location: '.site_url('login/authenticate'));
 			}
-		}
+		} 
 				
 		public function display_users() 
 		{

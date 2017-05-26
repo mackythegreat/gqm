@@ -92,7 +92,7 @@
 								<td class="text-center"><?php echo $users_item->team;?></td>
 								
 								<!--START UPDATE USER-->
-								<td><a href='#'  data-toggle="modal" data-target="#editUser" class='update_user btn btn-warning btn-lg btn-xs'
+								<td><a href='#'  data-toggle="modal" data-target="#editUser" class='update_user btn btn-info btn-lg btn-xs'
 								data-id='<?php echo $users_item->id;?>' 
 								data-eid='<?php echo $users_item->eid;?>'
 								data-career_level_id='<?php echo $users_item->career_level_id;?>'
@@ -100,6 +100,7 @@
 								data-user_type='<?php echo $users_item->user_type;?>'
 								data-is_admin='<?php echo $users_item->is_admin;?>'
 								data-is_qa_rep='<?php echo $users_item->is_qa_rep;?>'
+								 title='Update <?php echo $users_item->eid ?>'
 								><span class='glyphicon glyphicon-th-list'></span></a>
 								</td>
 								<?php $this->view('/modals/update_user');?>

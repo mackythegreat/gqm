@@ -59,7 +59,7 @@ $(document).on("click", ".update_user", function () {
 	   <!-- LEVEL -->
 		<div class="form-group" >
 		  <label>CAREER LEVEL</label>
-			<select id="career_level_id" name="career_level_id" class="form-control" id="team_id">
+			<select id="career_level_id" name="career_level_id" class="form-control">
 			  <!--option value="">-- Select Career Level --</option-->
 			  <option value="12">Associate Software Engineer</option>
 			  <option value="11">Software Engineer</option>
@@ -75,7 +75,7 @@ $(document).on("click", ".update_user", function () {
 		<div class="form-group">
 			<label>CAPABILITY</label>
 			<?php $team = array ('1' => 'ETL', '2' => '.NET', '3' => 'C++', '4' => 'Java', '5' => 'PHP', '6' => 'PL/SQL', '7' => 'System Test' ); ?>
-			<?php echo form_dropdown('team_id',$team, '','class="form-control" id="team_id"'); ?> 
+			<?php echo form_dropdown('team_id',$team, '','id="team_id" class="form-control"'); ?> 
 		</div>
 		
 		<!-- USER TYPE -->
