@@ -21,6 +21,7 @@
 		<script type="text/javascript" src='<?php echo base_url();?>angular/angular.min.js'></script>
 		<script type="text/javascript" src='<?php echo base_url();?>angular/gqm_validation.js'></script>
 		<script type="text/javascript" src='<?php echo base_url();?>angular/angular-messages.js'></script>
+		<script>$(document).ready(function(){    $('[data-toggle="tooltip"]').tooltip();   });</script>
 		<!--End Style Sheet Area-->
 		
 	</head>
@@ -47,7 +48,7 @@
 					<li><a href='<?php echo base_url();?>./user/display_users'><span class="glyphicon glyphicon-user"></span> Manage Users</a></li>	
 				<?php } ?>
 					
-				<?php if(($this->session->userdata('is_admin') != 0) || ($this->session->userdata('user_type') != "User") || ($this->session->userdata('is_qa_rep') != 0)) {?>
+				<?php if($this->session->userdata('is_qa_rep') != 0) {?>
 					<li><a href='<?php echo base_url();?>./project/display_projects'><span class="glyphicon glyphicon-tasks"></span> Manage Projects</a></li>
 					<li role="separator" class="divider"></li>
 				<?php }?>

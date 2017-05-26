@@ -31,12 +31,12 @@
 		{
 			if($this->session->userdata('id'))
 			{
+				$eid = $this->session->userdata('eid');
 				$id = $this->session->userdata('id');
 				$row = $this->m_user->get_user_details($id);
 				$data['users_detail'] = $row->result();
 				
 				// get all requirements tagged to this user
-				$id = $this->session->userdata('id');
 				$result = $this->m_project->get_proj_req_dashbrd($id);
 				if($result != FALSE)
 				{
@@ -53,7 +53,7 @@
 				$data['projects'] = $project_results->result();
 				
 				/* Retrieve TO-DO List */
-				if($row = $this->m_user->get_all_todo($id))
+				if($row = $this->m_user->get_all_todo($eid))
 				{
 					$data['todo_table'] = $row->result();
 				}
@@ -388,13 +388,36 @@
 		public function create_todo()
 		{
 			$data['eid'] = $this->session->userdata('eid');
-			$data['task'] = $this->input->post('task');
+			$data['title'] = $this->input->post('title');
 			$data['create_date'] = date('Y-m-d');
 			
 			$this->m_user->insert_todo($data);
 			
 			$this->session->set_flashdata('message','New to-do item has been added!');
 			redirect('user/user_dashboard','refresh');
+		}
+		
+		public function complete_todo($todo_id)
+		{
+			$this->m_user->set_end_date($todo_id);
+			
+			$this->session->set_flashdata('message','to-do item marked complete');
+					redirect('user/user_dashboard');
+		}
+		
+		
+		public function update_todo()
+		{
+			$id = $this->input->post('tsk_id');
+			
+			$data['title'] = $this->input->post('tsk_title');
+			$data['extra_notes'] = $this->input->post('tsk_ext_notes');
+			$data['target_date'] = $this->input->post('tsk_tg_date');
+
+			
+			$this->m_user->update_todo_item($id, $data);
+			
+			redirect('user/user_dashboard');	
 		}
 	}
 ?>

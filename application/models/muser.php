@@ -62,12 +62,12 @@
             }
 			
 			$this->db->limit($limit, $start);
-			$this->db->select('user.id, user.eid, user.team_id, user.career_level_id, user.is_admin, user.is_qa_rep,career_level.title, user.user_type, capability.team, user.is_active');
+			$this->db->select('user.id, user.eid, career_level.title, user.user_type, capability.team, user.is_active');
 			$this->db->from('user');
 			$this->db->join('capability', 'user.team_id = capability.id');
 			$this->db->join('career_level', 'career_level.level = user.career_level_id');
 			
-			$this->db->order_by("user.id", "desc"); 
+			$this->db->order_by("capability.id", "asc"); 
 			$query = $this->db->get();
 			
 			if ($query->num_rows() > 0) {
@@ -92,7 +92,7 @@
 			$this->db->from('user');
 			$this->db->join('capability', 'user.team_id = capability.id');
 			$this->db->join('career_level', 'career_level.level = user.career_level_id');
-			$this->db->order_by("user.id", "desc"); 
+			$this->db->order_by("capability.id", "asc"); 
 			$query = $this->db->get();
 			return $query->num_rows();
 		}
@@ -213,21 +213,28 @@
 			}
 		}
 		
-		public function update_todo($data)
+		public function set_end_date($data)
 		{
 			$this->db->set('end_date', 'NOW()', FALSE);
 			$this->db->where('id',$data);
 			$this->db->update('to_do_list');
 		}
 		
+		public function update_todo_item($id, $data) # 
+		{
+			$this->db->where('id',$id);
+			$this->db->update('to_do_list',$data);
+		}
+		
+		
 		public function get_all_todo($id)
 		{
 
-			$this->db->where("(id = '$id')");
+			$this->db->where("(eid = '$id')");
 			$this->db->where("(end_date = '')");
 		
 			
-			$this->db->select('id, task, create_date, target_date, end_date');
+			$this->db->select('id, title, extra_notes, tags, create_date, target_date, end_date');
 			$this->db->from('to_do_list');
 			$this->db->order_by("create_date", "asc"); 
 			$query = $this->db->get();

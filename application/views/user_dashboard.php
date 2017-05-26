@@ -61,22 +61,28 @@
 								<div class="panel-title" class="panel">
 									<b class="pull-right libreMenuIcon" ></b>
 					
-									<a class="small" data-toggle="collapse" href="<?php echo '#td'.$proj_items->proj_id;?>">
-										<span>TECHNICAL DESIGN</span>
+									<a class="small dropdown-toggle" data-toggle="collapse" href="<?php echo '#td'.$proj_items->proj_id;?>">
+
+										<span class="glyphicon glyphicon-chevron-down"> TECHNICAL DESIGN</span>
 									</a>
 								</div>
 							</div>
 							
 							<ul class="list-group collapse" id="<?php echo 'td'.$proj_items->proj_id;?>" style="list-style: none;">
+								
+								
 								<?php foreach ($td as $td_items):?>
+									
 									<?php if(($td_items->proj_id == $proj_items->proj_id) && ($td_items->req_type_id == 1)){ ?>
 									<li class="list-group-item small">
-									
-									
-										<?php if ($td_items->doc_link){ echo anchor($td_items->doc_link, $td_items->doc_name, 'target="_blank"'); ?>
+										
+										
+										<?php if ($td_items->doc_link){ echo anchor($td_items->doc_link, $td_items->doc_name, 'target="_blank"');} 
+										?>
 									</li>
-									<?php }?>
-								<?php } endforeach;?>
+									
+									<?php }else {?> <p class="small" style="text-align:center;">No Available Documents</p> 
+									<?php break;} endforeach;?>
 							</ul>
 							</li>
 							
@@ -87,7 +93,7 @@
 									<b class="pull-right libreMenuIcon" ></b>
 					
 									<a class="small" data-toggle="collapse" href="<?php echo '#bld'.$proj_items->proj_id;?>">
-										<span>BUILD </span>
+										<span class="glyphicon glyphicon-chevron-down"> BUILD</span>
 									</a>
 								</div>
 							</div>
@@ -98,10 +104,10 @@
 									<li class="list-group-item small">
 									
 									
-										<?php if ($td_items->doc_link){ echo anchor($td_items->doc_link, $td_items->doc_name, 'target="_blank"'); ?>
+										<?php if ($td_items->doc_link){ echo anchor($td_items->doc_link, $td_items->doc_name, 'target="_blank"'); }?>
 									</li>
-									<?php }?>
-								<?php } endforeach;?>
+									
+									<?php } endforeach;?>
 							</ul>
 							</li>
 							
@@ -111,7 +117,7 @@
 								<div class="panel-title" class="panel">
 									<b class="pull-right libreMenuIcon" ></b>
 									<a class="small" data-toggle="collapse" href="<?php echo '#chk'.$proj_items->proj_id;?>">
-										<span>CHECKLIST</span>
+										<span class="glyphicon glyphicon-chevron-down"> CHECKLIST</span>
 									</a>
 								</div>
 							</div>
@@ -120,10 +126,10 @@
 								<?php foreach ($td as $td_items):?>
 									<?php if(($td_items->proj_id == $proj_items->proj_id) && ($td_items->req_type_id == 3)){ ?>
 									<li class="list-group-item small">
-										<?php if ($td_items->doc_link){ echo anchor($td_items->doc_link, $td_items->doc_name, 'target="_blank"'); ?>
+										<?php if ($td_items->doc_link){ echo anchor($td_items->doc_link, $td_items->doc_name, 'target="_blank"');} ?>
 									</li>
-									<?php }?>
-								<?php } endforeach;?>
+									<?php }else {?> <p class="small" style="text-align:center;">No Available Documents</p> 
+									<?php break;} endforeach;?>
 							</ul>
 							</li>
 							
@@ -134,7 +140,7 @@
 									<b class="pull-right libreMenuIcon" ></b>
 					
 									<a class="small" data-toggle="collapse" href="<?php echo '#ut'.$proj_items->proj_id;?>">
-										<span>TESTING</span>
+										<span class="glyphicon glyphicon-chevron-down"> TESTING</span>
 									</a>
 								</div>
 							</div>
@@ -145,10 +151,10 @@
 									<li class="list-group-item small">
 									
 									
-										<?php if ($td_items->doc_link){ echo anchor($td_items->doc_link, $td_items->doc_name, 'target="_blank"'); ?>
+										<?php if ($td_items->doc_link){ echo anchor($td_items->doc_link, $td_items->doc_name, 'target="_blank"'); }?>
 									</li>
-									<?php }?>
-								<?php } endforeach;?>
+									<?php }else {?> <p class="small" style="text-align:center;">No Available Documents</p> 
+									<?php break;} endforeach;?>
 							</ul>
 							</li>
 							
@@ -159,7 +165,7 @@
 									<b class="pull-right libreMenuIcon" ></b>
 					
 									<a class="small" data-toggle="collapse" href="<?php echo '#motm'.$proj_items->proj_id;?>">
-										<span>MOTM</span>
+										<span class="glyphicon glyphicon-chevron-down"> MOTM</span>
 									</a>
 								</div>
 							</div>
@@ -170,9 +176,30 @@
 									<li class="list-group-item small">
 									
 									
-										<?php if ($td_items->doc_link){ echo anchor($td_items->doc_link, $td_items->doc_name, 'target="_blank"'); ?>
+										<?php if ($td_items->doc_link){ echo anchor($td_items->doc_link, $td_items->doc_name, 'target="_blank"'); }?>
 									</li>
-									<?php }?>
+									<?php }else {?> <p class="small" style="text-align:center;">No Available Documents</p> 
+									<?php break;} endforeach;?>
+							</ul>
+							</li>
+							
+							<!-- Review Pointsheet -->
+							<li class="librePanelListGroupItem">
+							<div class="panel-heading librePanelHeading">
+								<div class="panel-title" class="panel">
+									<b class="pull-right libreMenuIcon" ></b>
+					
+									<a class="small" data-toggle="collapse" href="<?php echo '#motm'.$proj_items->proj_id;?>">
+										<span class="glyphicon glyphicon-chevron-down"> REVIEW POINTSHEET</span>
+									</a>
+								</div>
+							</div>
+							
+							<ul class="list-group collapse" id="<?php echo 'motm'.$proj_items->proj_id;?>" style="list-style: none;">
+								<?php foreach ($td as $td_items):?>
+									<li class="list-group-item small">
+										<?php if ($td_items->doc_link){ echo anchor($td_items->rvw_link, $td_items->rvw_name, 'target="_blank"'); ?>
+									</li>
 								<?php } endforeach;?>
 							</ul>
 							</li>
@@ -227,7 +254,7 @@
 					
 
 					<div class="input-group">
-						<?php echo form_input('task', set_value('task'), 'type="text" class="form-control" placeholder="Add Task Here" style="font-style:italic"'); ?>
+						<?php echo form_input('title', set_value('title'), 'type="text" class="form-control" placeholder="Add Task Here" style="font-style:italic"'); ?>
 						
 						<span class="input-group-btn">
 								<button class="btn btn-default" type="submit"><span
@@ -236,24 +263,110 @@
 					</div> 
 					
 				<?php echo form_close(); ?>
+				<hr/>
 				
-				<br/><br/>
-				<table class= "table">
-				<?php 
-				if(empty($todo_table)){	echo 'No Tasks';} else {?>
-					<?php foreach ($todo_table as $item):?>
-						<tbody>
-							<tr>
-								<td><?php echo $item->task;?> </td>
-								<td><a class='btn btn-info btn-xs push-right' data-toggle="modal" data-target="#edit_todo" data-id='<?php echo $item->id ?>'>
-												<span class='glyphicon glyphicon-edit'></span></a></td>
-								<td><a href='<?php echo base_url();?>user/complete_todo/<?php echo $item->id?>' 
-												class='btn btn-info btn-xs push-right' data-toggle='tooltip'>
-												<span class='glyphicon glyphicon-check'></span></a></td>
-							</tr>
-						</tbody>
-				<?php endforeach; }?>
-				</table>
+
+				<?php
+					function time_ago( $time )
+					{
+						$out    = ''; // what we will print out
+						$now    = time(); // current time
+						$diff   = $now - $time; // difference between the current and the provided dates
+				
+						if( $diff < 60 ) // it happened now
+							return TIMEBEFORE_NOW;
+				
+						elseif( $diff < 3600 ) // it happened X minutes ago
+							return str_replace( '{num}', ( $out = round( $diff / 60 ) ), $out == 1 ? TIMEBEFORE_MINUTE : TIMEBEFORE_MINUTES );
+				
+						elseif( $diff < 3600 * 24 ) // it happened X hours ago
+							return str_replace( '{num}', ( $out = round( $diff / 3600 ) ), $out == 1 ? TIMEBEFORE_HOUR : TIMEBEFORE_HOURS );
+				
+						elseif( $diff < 3600 * 24 * 2 ) // it happened yesterday
+							return TIMEBEFORE_YESTERDAY;
+				
+						else // falling back on a usual date format as it happened later than yesterday
+							return strftime( date( 'Y', $time ) == date( 'Y' ) ? TIMEBEFORE_FORMAT : TIMEBEFORE_FORMAT_YEAR, $time );
+					}
+					
+					
+					function time_passed($timestamp)
+					{
+						$diff = time() - (int)$timestamp;
+
+						if ($diff == 0) 
+							return 'just now';
+					
+						$intervals = array
+						(
+							1                   => array('year',    31556926),
+							$diff < 31556926    => array('month',   2628000),
+							$diff < 2629744     => array('week',    604800),
+							$diff < 604800      => array('day',     86400),
+							$diff < 86400       => array('hour',    3600),
+							$diff < 3600        => array('minute',  60),
+							$diff < 60          => array('second',  1)
+						);
+					
+						$value = floor($diff/$intervals[1][1]);
+						return $value.' '.$intervals[1][0].($value > 1 ? 's' : '').' ago';
+					}
+				?>
+				
+				
+				
+				<div class="panel-group">
+				<?php foreach ($todo_table as $task_item):
+
+					
+					switch ($proj_items->status) {
+						case "Not Started": 
+							$task_color = "panel panel-danger"; 
+						break; 
+						case "In Progress": 
+							$task_color = "panel panel-warning"; 
+						break;
+						case "Completed": 
+							$task_color = "panel panel-danger"; 
+						break;
+
+				}
+				
+				//echo time_passed(strtotime('\"'.$task_item->create_date.'\"'));
+				?>
+				
+				<div class="panel panel-danger">
+					<div class='panel-heading' data-toggle="tooltip" title='<?php echo $task_item->extra_notes; ?>'>
+					
+						
+						<a class='update_task btn btn-xs pull-right' style='margin-left: 5px;' data-toggle="modal" 
+						data-target="#edit_todo" 
+						
+						data-tsk_id='<?php echo $task_item->id; ?>'
+						data-tsk_title='<?php echo $task_item->title; ?>'
+						data-tsk_ext_notes='<?php echo $task_item->extra_notes; ?>'
+						data-tsk_tg_date='<?php echo $task_item->target_date; ?>'
+						><span class='glyphicon glyphicon-pencil'></span></a>
+						
+			
+						
+						
+						<a href='<?php echo base_url();?>user/complete_todo/<?php echo $task_item->id?>' 
+						class='btn btn-xs pull-right' style='margin-left: 20px;' data-toggle='tooltip'>
+						<span class='glyphicon glyphicon-check'></span></a>
+									
+
+						<a class="small" data-toggle="collapse" href="<?php echo '#'.$task_item->id;?>">
+							<span><?php echo $task_item->title;?></span>
+						</a>
+						</div>
+						
+					
+					</div>
+				<?php endforeach; ?>
+				</div>
+				
+				
 			</div>
 		
 		</div>
