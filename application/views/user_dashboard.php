@@ -239,7 +239,15 @@
 			</div>
 			
 			<div class="col-md-4 well" style="display:inline-block; text-align:left; float:none;">
-				<h3>Assigned Tasks</h3>
+				<h3>Tasks</h3>
+				<ul class="nav nav-tabs">
+					<li class="active"><a data-toggle="tab" href="#mytask">My Tasks</a></li>
+					<li><a data-toggle="tab" href="#teamtasks">Team Tasks</a></li>
+					
+				</ul>
+			<div class="tab-content">
+			<div id="mytask" class="tab-pane fade in active">
+				
 				<table class='table'>
 					<?php if ($proj_req != FALSE){ ?>
 					
@@ -268,6 +276,12 @@
 					<?php } else { ?> <hr><?php echo "Congrats! You don't have an assigned task. Enjoy your day!"; }?>	
 					</tbody>	 
 				</table>
+			</div> <!--mytask-->
+				
+				<div id="teamtasks" class="tab-pane fade">
+					hello world
+				</div> <!--teamtasks-->
+				</div> <!--tab-content-->
 			</div>
 			
 			<div class="col-md-3 well" style="display:inline-block; text-align:left; float:right;">
