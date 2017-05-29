@@ -28,37 +28,64 @@ $(document).on("click", ".update_proj_req", function () {
     
       <!-- Modal content-->
       <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header" style="background-color:#333;color:#fff;">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Project Requirement</h4>
         </div>
-        <div class="modal-body">
-		
-		<?php echo form_open_multipart('project/update_proj_req_dshbrd/'); ?>
-		
-		<?php echo form_input('proj_req_id','','class="form-control hidden" id="pr_id" readonly'); ?>
-		Document Name:
-			<?php echo form_input('doc_name', /*value*/'','class="form-control" id="doc_name"'); ?> <?php echo form_error('doc_name'); ?>
-		Document Link:
-			<?php echo form_input('doc_link', /*value*/'','class="form-control" id="doc_link"'); ?> <?php echo form_error('doc_link'); ?>
-        Pointsheet Name:
-			<?php echo form_input('rvw_name', /*value*/'','class="form-control" id="rvw_name"'); ?> <?php echo form_error('rvw_name'); ?>
-		Pointsheet Link:
-			<?php echo form_input('rvw_link', /*value*/'','class="form-control" id="rvw_link"'); ?> <?php echo form_error('rvw_link'); ?>
-		Status:
-			<?php echo form_dropdown('status', $this->db->enum_select('project_req','status'),'','class="form-control" id="status"'); ?>
-		Assignee:
-			<?php echo form_input('assignee', /*value*/'','class="form-control" id="assignee" readonly'); ?> <?php echo form_error('assignee'); ?>
-		Reviewer:
-			<?php echo form_input('reviewer', /*value*/'','class="form-control" id="reviewer" readonly'); ?> <?php echo form_error('reviewer'); ?>
-		
+        <div class="modal-body small">
+			<div class="row">
+				<div class="col-md-8">
+					<?php echo form_open_multipart('project/update_proj_req_dshbrd/'); ?>
+					
+					<?php echo form_input('proj_req_id','<a href=>','class="form-control hidden" id="pr_id" readonly'); ?>
+				
+				
+					<label class="mod-header"> Document Name</label><br />
+					<?php echo form_input('doc_name', /*value*/'','class="form-control" id="doc_name"'); ?> <?php echo form_error('doc_name'); ?>
+						
+					<br />
+					<label> Document Link</label><br />
+					<?php echo form_input('doc_link', /*value*/'','class="form-control" id="doc_link"'); ?> <?php echo form_error('doc_link'); ?>
+					
+					<hr>
+				</div>
+				
+				<div class="col-md-4">
+					<label> Assignee</label><br />
+						<?php echo form_input('assignee', /*value*/'','class="form-control" id="assignee" readonly'); ?> <?php echo form_error('assignee'); ?>
+				</div>
+			</div>
+				
+			<div class="row">
+				<div class="col-md-8">
+					<label> Pointsheet Name</label><br />
+						<?php echo form_input('rvw_name', /*value*/'','class="form-control" id="rvw_name"'); ?> <?php echo form_error('rvw_name'); ?>
+					
+					<br />
+					<label> Pointsheet Link</label><br />
+						<?php echo form_input('rvw_link', /*value*/'','class="form-control" id="rvw_link"'); ?> <?php echo form_error('rvw_link'); ?>
+					<hr>
+				</div>
+				
+				<div class="col-md-4">
+					<label> Reviewer</label><br />
+					<?php echo form_input('reviewer', /*value*/'','class="form-control" id="reviewer" readonly'); ?> <?php echo form_error('reviewer'); ?>
+				</div>
+			</div>
+			
+			
+			<div class="row">
+				<div class="col-md-8">
+					<label> Status</label><br />
+					<?php echo form_dropdown('status', $this->db->enum_select('project_req','status'),'','class="form-control" id="status"'); ?>
+				</div>
+			</div>
 		</div>
-        <div class="modal-footer">
+
+		<div class="modal-footer" >
 			<?php echo form_submit('submit','Update','class="btn btn-info"');?>
 			<?php echo form_close(); ?>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>	
-        </div>
-      </div>
-      
-    </div>
-  </div>
+			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>	
+		</div>
+	</div>
+</div>
